@@ -68,11 +68,9 @@ function getTask(task_text,currentTime) {
 
     done.addEventListener("click", () => {
         done.children[0].style.display = "block"
+        console.log(text.value); 
+        deltext.innerText = text.value 
         text.remove()
-        deltext.innerText = task_text
-        
-      
-
     })
     del.addEventListener("click", () => {
         console.log('clicked');

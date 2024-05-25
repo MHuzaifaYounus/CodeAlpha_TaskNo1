@@ -1,51 +1,77 @@
-
+// This function takes in a date object and returns a formatted string representing the time in AM/PM format
 function formatAMPM(date) {
+    // Get the hours, minutes, and AM/PM indicator from the date object
     var hours = date.getHours();
     var minutes = date.getMinutes();
-    var ampm = hours >= 12 ? 'Pm' : 'Am';
+    var ampm = hours >= 12? 'Pm' : 'Am';
+
+    // Adjust the hours to be in the range of 1-12 and add leading zeros to the minutes if necessary
     hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
-    minutes = minutes < 10 ? '0'+minutes : minutes;
+    hours = hours? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10? '0'+minutes : minutes;
+
+    // Create a string representing the time in the format of "hours:minutes AM/PM"
     var strTime = hours + ':' + minutes + ' ' + ampm;
+
+    // Return the formatted time string
     return strTime;
-  }
-  
+}
 
-
+// This function takes in a task text and the current time, and creates a new task element with the given text and time
 function getTask(task_text,currentTime) {
+    // Create a new div element to represent the task
     let task = document.createElement("div")
     task.className = "task"
+
+    // Append the task to the container element
     document.querySelector(".container").append(task)
 
+    // Create a new div element to represent the "done" status of the task
     let done = document.createElement("div")
     done.className = "done"
-    done.innerHTML = `<?xml version="1.0" ?><svg class="tick" height="30px" version="1.1" viewBox="0 0 19 18" width="32px" xmlns="http://www.w3.org/2000/svg" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" xmlns:xlink="http://www.w3.org/1999/xlink"><title/><desc/><defs/><g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1"><g fill="rgb(7, 193, 7)" id="Core" transform="translate(-465.000000, -45.000000)"><g id="check-box" transform="translate(465.000000, 45.000000)"><path d="M16,0 L2,0 C0.9,0 0,0.9 0,2 L0,16 C0,17.1 0.9,18 2,18 L16,18 C17.1,18 18,17.1 18,16 L18,2 C18,0.9 17.1,0 16,0 L16,0 Z M7,14 L2,9 L3.4,7.6 L7,11.2 L14.6,3.6 L16,5 L7,14 L7,14 Z" id="Shape"/></g></g></g></svg>`
+
+    // Set the inner HTML of the "done" element to be an SVG icon representing a checkmark
+    done.innerHTML = `<?xml version="1.0"?><svg class="tick" height="30px" version="1.1" viewBox="0 0 19 18" width="32px" xmlns="http://www.w3.org/2000/svg" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" xmlns:xlink="http://www.w3.org/1999/xlink"><title/><desc/><defs/><g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1"><g fill="rgb(7, 193, 7)" id="Core" transform="translate(-465.000000, -45.000000)"><g id="check-box" transform="translate(465.000000, 45.000000)"><path d="M16,0 L2,0 C0.9,0 0,0.9 0,2 L0,16 C0,17.1 0.9,18 2,18 L16,18 C17.1,18 18,17.1 18,16 L18,2 C18,0.9 17.1,0 16,0 L16,0 Z M7,14 L2,9 L3.4,7.6 L7,11.2 L14.6,3.6 L16,5 L7,14 L7,14 Z" id="Shape"/></g></g></g></svg>`
+
+    // Append the "done" element to the task element
     task.append(done)
 
-
+    // Create a new div element to represent the task text
     let taskText = document.createElement("div")
     taskText.className = "task-text"
+
+    // Append the task text element to the task element
     task.append(taskText)
 
-
-
+    // Create a new input element to display the task text
     let text = document.createElement("input")
     text.value = task_text
     text.setAttribute("type", "text")
     text.setAttribute("readonly", "")
     text.className = "input"
+
+    // Append the input element to the task text element
     taskText.append(text)
 
+    // Create a new del element to represent the task text if it is marked as "done"
     let deltext = document.createElement("del")
+
+    // Append the del element to the task text element
     taskText.append(deltext)
 
+    // Create a new div element to represent the task options
     let options = document.createElement("div")
     options.className = "options"
+
+    // Append the options element to the task text element
     taskText.append(options)
 
+    // Create a new div element to represent the "done" edit button
     let doneEdit = document.createElement("div")
     doneEdit.className = 'done-edit'
+    // Set the inner HTML of the "done" edit button to be an SVG icon representing a tick
     doneEdit.innerHTML += ` <?xml version="1.0" ?><svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg"><title/><g><path d="M58.3945,32.1563,42.9961,50.625l-5.3906-6.4629a5.995,5.995,0,1,0-9.211,7.6758l9.9961,12a5.9914,5.9914,0,0,0,9.211.0059l20.0039-24a5.9988,5.9988,0,1,0-9.211-7.6875Z"/><path d="M48,0A48,48,0,1,0,96,48,48.0512,48.0512,0,0,0,48,0Zm0,84A36,36,0,1,1,84,48,36.0393,36.0393,0,0,1,48,84Z"/></g></svg>`
+   // Append the "done" edit button to the options element
     options.append(doneEdit)
 
     let timeBox = document.createElement("div")
@@ -66,6 +92,7 @@ function getTask(task_text,currentTime) {
     del.innerHTML += `  <?xml version="1.0" ?><svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M432 80h-82.38l-34-56.75C306.1 8.827 291.4 0 274.6 0H173.4C156.6 0 141 8.827 132.4 23.25L98.38 80H16C7.125 80 0 87.13 0 96v16C0 120.9 7.125 128 16 128H32v320c0 35.35 28.65 64 64 64h256c35.35 0 64-28.65 64-64V128h16C440.9 128 448 120.9 448 112V96C448 87.13 440.9 80 432 80zM171.9 50.88C172.9 49.13 174.9 48 177 48h94c2.125 0 4.125 1.125 5.125 2.875L293.6 80H154.4L171.9 50.88zM352 464H96c-8.837 0-16-7.163-16-16V128h288v320C368 456.8 360.8 464 352 464zM224 416c8.844 0 16-7.156 16-16V192c0-8.844-7.156-16-16-16S208 183.2 208 192v208C208 408.8 215.2 416 224 416zM144 416C152.8 416 160 408.8 160 400V192c0-8.844-7.156-16-16-16S128 183.2 128 192v208C128 408.8 135.2 416 144 416zM304 416c8.844 0 16-7.156 16-16V192c0-8.844-7.156-16-16-16S288 183.2 288 192v208C288 408.8 295.2 416 304 416z"/></svg>`
     options.append(del)
 
+    // adding event listener to done  
     done.addEventListener("click", () => {
         done.children[0].style.display = "block"
         console.log(text.value); 
@@ -93,14 +120,14 @@ function getTask(task_text,currentTime) {
     })
 
 }
-
+// add task button when clicked 
 document.querySelector(".addbtn").addEventListener("click", () => {
     console.log('clicked');
     let inputText = document.querySelector(".inputText").value
     getTask(inputText,formatAMPM(new Date()))
     document.querySelector(".inputText").value = null
 })
-
+// reload permission
 window.onbeforeunload = function() {
     return "Are you sure you want to leave?";
 }

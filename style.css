@@ -57,10 +57,16 @@ main {
     margin: 100px auto;
     border-radius: 10px;
     position: relative;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    padding-bottom: 20px;
 
 
 }
-
+del {
+    height: 21px;
+    line-height: 20px;
+}
 .mainLogo {
     height: 40px;
     fill: white;
@@ -164,10 +170,8 @@ hr {
     border-bottom: 1px solid rgba(255, 255, 255, 0.473);
 }
 
-.input[type="text"] {
-    font-family: "Play", sans-serif;
-    
-
+input[type="text"] {
+    font-family: "Kalam", cursive;
 }
 
 .input {
